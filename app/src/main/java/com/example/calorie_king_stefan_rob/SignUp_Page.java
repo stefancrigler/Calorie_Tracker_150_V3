@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -55,7 +57,7 @@ public class SignUp_Page extends AppCompatActivity{
 
     }
 
-    private void createAccount(String email, String password) {
+    private void createAccount(final String email, String password) {
         Log.d("Creating Account", "createAccount:" + email);
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -66,6 +68,10 @@ public class SignUp_Page extends AppCompatActivity{
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Creating Acccount", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = prefs.edit();
+                            final String em = email;
+                            editor.putString("email",email);
 
 
 

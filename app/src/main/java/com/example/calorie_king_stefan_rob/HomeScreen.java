@@ -65,7 +65,7 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View view){
                 Log.i("My Groups","Going to My Groups");
                 //will take user to new activity
-                Intent intent = new Intent(HomeScreen.this, CalorieGoalBoard.class);
+                Intent intent = new Intent(HomeScreen.this, My_Groups_Page.class);
                 startActivity(intent);
                 finish();
             }

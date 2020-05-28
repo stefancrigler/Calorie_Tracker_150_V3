@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/back"
+        android:id="@+id/to_leaderboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="back_login"
@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:onClick="toHome"
         android:text="Log In"
-        app:layout_constraintBottom_toBottomOf="@+id/back"
+        app:layout_constraintBottom_toBottomOf="@+id/to_leaderboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/password" />

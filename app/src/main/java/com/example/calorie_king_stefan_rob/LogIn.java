@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -42,7 +44,7 @@ public class LogIn extends AppCompatActivity {
         signIn(username.getText().toString(), password.getText().toString());
     }
 
-    private void signIn(String email, String password) {
+    private void signIn(final String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -51,6 +53,11 @@ public class LogIn extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Signing In", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = prefs.edit();
+                            final String em = email;
+                            editor.putString("email",email);
+                            editor.apply();
                             Intent intent = new Intent(LogIn.this, HomeScreen.class);
                             startActivity(intent);
                             finish();

@@ -37,6 +37,11 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        TextView username_show = findViewById((R.id.username_show));
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String username = prefs.getString("username","guest1");
+        username_show.setText("Username: " + username);
+
         Log.d("db", "here");
         db.collection("calorie_goals")
                 .get()
@@ -60,11 +65,13 @@ public class Settings extends AppCompatActivity {
         TextView goal_update = findViewById(R.id.goal_update);
         TextView username_show = findViewById((R.id.username_show));
         TextView username_update  =findViewById(R.id.editText);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final String email = prefs.getString("email", null);
         try{
             Integer.parseInt(goal_update.getText().toString());
             calorie_goal.setText("Calorie Goal: " + goal_update.getText().toString());
             daily_goal = Integer.parseInt(goal_update.getText().toString()); //set the goal to new value
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            //SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             SharedPreferences.Editor editor = prefs.edit();
             editor.putInt("calorie goal" ,daily_goal);
             if(username_update.getText().toString()!=""){
@@ -77,7 +84,7 @@ public class Settings extends AppCompatActivity {
             cg.put("calorie_goal",goal_update.getText().toString());
             cg.put("current_day","300");
             cg.put("username",username_update.getText().toString());
-            db.collection("calorie_goals").document("tester")
+            db.collection("calorie_goals").document(email)
                     .set(cg)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

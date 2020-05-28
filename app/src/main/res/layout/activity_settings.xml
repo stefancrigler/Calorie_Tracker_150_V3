@@ -55,7 +55,7 @@
         android:id="@+id/calorie_goal_update"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="88dp"
+        android:layout_marginBottom="104dp"
         android:onClick="update_goal"
         android:text="Update"
         app:layout_constraintBottom_toTopOf="@+id/logout_button"
