@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "325317970244",
+    "firebase_url": "https://calorie-king.firebaseio.com",
+    "project_id": "calorie-king",
+    "storage_bucket": "calorie-king.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325317970244:android:e6dc787674af947a586f11",
+        "android_client_info": {
+          "package_name": "com.example.calorie_king_stefan_rob"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325317970244-32i9gv4r3g0blgg6s8picps0r7vava3d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9XpAnHBRWFk76BdLrFe2S4PlYOMnE_7g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325317970244-32i9gv4r3g0blgg6s8picps0r7vava3d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

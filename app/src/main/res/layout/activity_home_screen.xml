@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeScreen">
+
+    <TextView
+        android:id="@+id/textView_daily_log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/cherry_cream_soda"
+        android:text="Your Daily Progress"
+        android:textColor="#4CAF50"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/calorie_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.68" />
+
+    <ProgressBar
+        android:id="@+id/calorie_progress"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+        android:layout_width="126dp"
+        android:layout_height="101dp"
+        android:layout_marginBottom="256dp"
+        android:progress="0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.307" />
+
+    <Button
+        android:id="@+id/Tester"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="test"
+        android:text="Increase"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/calorie_progress"
+        app:layout_constraintTop_toBottomOf="@+id/textView_daily_log" />
+
+    <ImageView
+        android:id="@+id/daily_log"
+        android:layout_width="101dp"
+        android:layout_height="131dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/settings"
+        app:layout_constraintEnd_toStartOf="@+id/my_groups"
+        app:layout_constraintTop_toBottomOf="@+id/calorie_progress"
+        app:srcCompat="@drawable/daily_log_icon" />
+
+    <ImageView
+        android:id="@+id/my_calorie_history"
+        android:layout_width="126dp"
+        android:layout_height="138dp"
+        android:layout_marginBottom="116dp"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/my_calorie_history_icon" />
+
+    <ImageView
+        android:id="@+id/my_groups"
+        android:layout_width="128dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/my_calorie_history"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calorie_progress"
+        app:layout_constraintVertical_bias="0.641"
+        app:srcCompat="@drawable/my_groups_icon" />
+
+    <ImageView
+        android:id="@+id/settings"
+        android:layout_width="109dp"
+        android:layout_height="96dp"
+        android:layout_marginBottom="124dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/my_calorie_history"
+        app:srcCompat="@drawable/settings_icon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
