@@ -75,7 +75,8 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Log.i("My Calorie History","Going to My Calorie History");
-                Intent homeScreenToMyCalorieHistoryIntent = new Intent(HomeScreen.this, MyCalorieHistoryActivity.class);
+                Intent homeScreenToMyCalorieHistoryIntent =
+                        new Intent(HomeScreen.this, MyCalorieHistoryActivity.class);
                 startActivity(homeScreenToMyCalorieHistoryIntent);
                 finish();
             }
