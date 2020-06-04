@@ -21,6 +21,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,9 +39,110 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         TextView username_show = findViewById((R.id.username_show));
+        TextView calorie_goal = findViewById(R.id.calorie_goal);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String username = prefs.getString("username","guest1");
+        int goal = prefs.getInt("calorie goal", 2000);
+        calorie_goal.setText("Calorie Goal: " + Integer.toString(goal));
         username_show.setText("Username: " + username);
+
+        //Test
+        Ingredient i1 = new Ingredient("flour","ounces",3);
+        Ingredient i2 = new Ingredient("yeast","tablespoon",2);
+        Ingredient i3 = new Ingredient("cinnamon","teaspoon",1);
+        Map<String,Ingredient> m = new HashMap<>();
+        m.put("Ingredient000",i1);
+        m.put("Ingredient001",i2);
+        m.put("Ingredient002",i3);
+        Meal meal = new Meal(m,"cinnabread",100);
+        Map<String, Meal> meal000 = new HashMap<>();
+        meal000.put("meal000",meal);
+        db.collection("testUser02").document("2020-06-03")
+                .set(meal000, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("db", "meal000!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("db", "Error writing document", e);
+                    }
+                });
+
+        //Test
+        Ingredient i11 = new Ingredient("bacon","ounces",4);
+        Ingredient i21 = new Ingredient("hot dog","ounces",8);
+        Map<String,Ingredient> m1 = new HashMap<>();
+        m1.put("Ingredient000",i11);
+        m1.put("Ingredient001",i21);
+        Meal meal1 = new Meal(m1,"bacon wrapped hot dog",480);
+        Map<String, Meal> meal001 = new HashMap<>();
+        meal001.put("meal001",meal1);
+        db.collection("testUser02").document("2020-06-03")
+                .set(meal001, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("db", "meal001!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("db", "Error writing document", e);
+                    }
+                });
+
+        //Test
+        Ingredient i12 = new Ingredient("spinach","ounces",8);
+        Ingredient i22 = new Ingredient("ranch dressing","tablespoon",6);
+        Ingredient i32 = new Ingredient("tomato","ounces",3);
+        Ingredient i42 = new Ingredient("olives","ounces",1);
+        Map<String,Ingredient> m2 = new HashMap<>();
+        m2.put("Ingredient000",i12);
+        m2.put("Ingredient001",i22);
+        m2.put("Ingredient002",i32);
+        m2.put("Ingredient003",i42);
+        Meal meal2 = new Meal(m2,"salad",340);
+        Map<String, Meal> meal002 = new HashMap<>();
+        meal002.put("meal002",meal2);
+        db.collection("testUser02").document("2020-06-03")
+                .set(meal002, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("db", "meal002!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("db", "Error writing document", e);
+                    }
+                });
+
+        Meal w0 = new Meal(new HashMap<String, Ingredient>(),"Bike Ride",-72);
+        Map<String, Meal> workout000 = new HashMap<>();
+        workout000.put("workout000",w0);
+        db.collection("testUser02").document("2020-06-03")
+                .set(workout000, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("db", "workout000!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("db", "Error writing document", e);
+                    }
+                });
+
+
 
         Log.d("db", "here");
         db.collection("calorie_goals")
@@ -64,7 +166,7 @@ public class Settings extends AppCompatActivity {
         TextView calorie_goal = findViewById(R.id.calorie_goal);
         TextView goal_update = findViewById(R.id.goal_update);
         TextView username_show = findViewById((R.id.username_show));
-        TextView username_update  =findViewById(R.id.editText);
+        TextView username_update = findViewById(R.id.editText);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final String email = prefs.getString("email", null);
         try{
@@ -121,6 +223,5 @@ public class Settings extends AppCompatActivity {
                 });
         startActivity(intent);
         finish();
-
     }
 }

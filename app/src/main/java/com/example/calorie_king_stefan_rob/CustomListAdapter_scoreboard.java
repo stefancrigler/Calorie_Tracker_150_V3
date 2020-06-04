@@ -11,16 +11,16 @@ import android.widget.TextView;
 
 public class CustomListAdapter_scoreboard extends ArrayAdapter {
     //to reference the Activity
-    private final Activity context;
+    public final Activity context;
 
     //to store the animal images
-    private final Integer[] imageIDarray;
+    public final Integer[] imageIDarray;
 
     //to store the list of countries
-    private final String[] nameArray;
+    public final String[] nameArray;
 
     //to store the list of countries
-    private final String[] scoreArray;
+    public final String[] scoreArray;
 
     public CustomListAdapter_scoreboard(Activity context, String[] nameArrayParam, String[] infoArrayParam, Integer[] imageIDArrayParam){
 
