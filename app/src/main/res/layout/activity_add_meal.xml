@@ -73,21 +73,22 @@
 
     <EditText
         android:id="@+id/editText_nkcal_in_ratio"
-        android:layout_width="157dp"
+        android:layout_width="200dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:ems="10"
         android:hint="n kCal"
         android:inputType="numberSigned"
-        app:layout_constraintBottom_toTopOf="@+id/button_edit_delete_ingredient"
+        app:layout_constraintBottom_toTopOf="@+id/button_finish_adding_meal"
+        app:layout_constraintEnd_toStartOf="@+id/editText_unit_in_ratio"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editText_unit_in_ratio"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:ems="10"
@@ -108,7 +109,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/button_edit_delete_ingredient"
+        android:id="@+id/button_finish_adding_meal"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="8dp"
@@ -117,7 +118,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_add_ingredient"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="edit ingredient" />
+        tools:text="Finish adding meal" />
 
     <TextView
         android:id="@+id/textView_kcal_ratio"
