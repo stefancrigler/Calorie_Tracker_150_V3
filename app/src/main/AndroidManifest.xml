@@ -8,8 +8,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".Ingredient_Display"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustResize">
+        <activity android:name=".Fat_Secret_Set_Amount"></activity>
+        <activity android:name=".FatSecret_Search_Meal" />
+        <activity android:name=".Ingredient_Display" />
         <activity android:name=".My_Groups_Page" />
         <activity android:name=".CalorieGoalBoard" />
         <activity android:name=".Settings" />
@@ -34,5 +38,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

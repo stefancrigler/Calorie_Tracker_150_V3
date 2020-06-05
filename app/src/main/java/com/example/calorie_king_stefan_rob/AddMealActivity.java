@@ -201,10 +201,10 @@ public class AddMealActivity extends AppCompatActivity
              .add((String) previouslyUsedIngredientsStraightFromDatabaseMap.get(currIngrIndexStringBuilder.toString()));
 
          // fetch 2 here
-         nUnitNamesAssociatedWithCurrIngredient = (int) previouslyUsedIngredientsStraightFromDatabaseMap.get(currIngrIndexStringBuilder)
+         nUnitNamesAssociatedWithCurrIngredient = (int) previouslyUsedIngredientsStraightFromDatabaseMap.get(currIngrIndexStringBuilder);
 
          // cycle thru 2 sets of three pieces of information associated w/ the unitname
-         for
+         //for
 
 
          // increment the key to the next ingredient
