@@ -34,17 +34,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.307" />
 
-    <Button
-        android:id="@+id/Tester"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:onClick="test"
-        android:text="Increase"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/calorie_progress"
-        app:layout_constraintTop_toBottomOf="@+id/textView_daily_log" />
-
     <ImageView
         android:id="@+id/daily_log"
         android:layout_width="101dp"
