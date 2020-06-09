@@ -47,6 +47,7 @@ public class Settings extends AppCompatActivity {
         username_show.setText("Username: " + username);
 
         //Test
+        /*
         Ingredient i1 = new Ingredient("flour","ounces",3);
         Ingredient i2 = new Ingredient("yeast","tablespoon",2);
         Ingredient i3 = new Ingredient("cinnamon","teaspoon",1);
@@ -142,6 +143,8 @@ public class Settings extends AppCompatActivity {
                     }
                 });
 
+         */
+
 
 
         Log.d("db", "here");
@@ -161,6 +164,8 @@ public class Settings extends AppCompatActivity {
                 });
 
     }
+
+
 
     public void update_goal(View View){
         TextView calorie_goal = findViewById(R.id.calorie_goal);

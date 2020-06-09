@@ -133,6 +133,7 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
             Integer.parseInt(servings.getText().toString());
             BigDecimal new_cal = new BigDecimal(Integer.parseInt(servings.getText().toString()));
             BigDecimal calor = new_cal.multiply(cals);
+            cals = calor;
             Log.d("db","BigDecimal");
             Log.d("db",calor.toString());
             d = calor.doubleValue();
@@ -143,8 +144,9 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
         }
     }
     public void add_meal(View view){
+
         LocalDate date = LocalDate.now();
-        Meal meal = new Meal(new HashMap<>(),name,100);
+        Meal meal = new Meal(new HashMap<>(),name, cals.intValue());
         Map<String, Meal> meal005 = new HashMap<>();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

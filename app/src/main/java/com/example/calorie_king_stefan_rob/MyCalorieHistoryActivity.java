@@ -161,10 +161,11 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
 
       final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
       SharedPreferences.Editor editor = prefs.edit();
+      String email = prefs.getString("email",null);
       final String calorie_goal = Integer.toString(prefs.getInt("calorie goal",2000));
       Goal_Progress = findViewById(R.id.Goal_Progress);
 
-      db.collection("testUser02")
+      db.collection(email)
               .get()
               .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                  @Override

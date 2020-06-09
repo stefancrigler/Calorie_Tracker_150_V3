@@ -1,5 +1,6 @@
 package com.example.calorie_king_stefan_rob;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +12,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 public class HomeScreen extends AppCompatActivity {
 
     private ProgressBar calorieProgress;
@@ -20,6 +34,10 @@ public class HomeScreen extends AppCompatActivity {
     private ImageView my_groups;
     private ProgressBar calorie_progress;
     private int goal_value;
+    public int counter;
+    public Double sum = 0.0;
+    public Double score;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +53,12 @@ public class HomeScreen extends AppCompatActivity {
         //set the progress bar
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = prefs.edit();
+        final String email = prefs.getString("email",null);
         goal_value = prefs.getInt("calorie goal", 2000);
         calorie_progress.setMax(goal_value);
+        update_user_score();
+
+
 
 
         //to daily log
@@ -44,7 +66,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Log.i("Daily Log","Going to Daily Log");
-                Intent homeScreenToDailyLogIntent = new Intent(HomeScreen.this, FatSecret_Search_Meal.class);
+                Intent homeScreenToDailyLogIntent = new Intent(HomeScreen.this, DailyLogActivity.class);
                 startActivity(homeScreenToDailyLogIntent);
                 finish();
             }
@@ -89,6 +111,81 @@ public class HomeScreen extends AppCompatActivity {
     public void test(View view){
         calorieProgress = (ProgressBar)findViewById(R.id.calorie_progress);
         calorieProgress.incrementProgressBy(10);
+    }
+
+    public void update_user_score(){
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = prefs.edit();
+        String email = prefs.getString("email",null);
+
+
+        db.collection(email)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if(task.getResult().size() > 0) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    Log.d("db", document.getId());
+                                    if (document.getId().toString().equals(prefs.getString("calorie_history_date", null))) {
+                                        Map<String, Object> all_inputs = (Map<String, Object>) document.getData();
+                                        Iterator it = all_inputs.entrySet().iterator();
+                                        while (it.hasNext()) {
+                                            Map.Entry pair = (Map.Entry) it.next();
+                                            Map<String, Object> meal = (Map<String, Object>) pair.getValue();
+                                            Double cal = (Double) meal.get("calories");
+                                            sum = sum + cal;
+                                            counter = counter + 1;
+                                            Log.d("db", document.getId() + " => " + document.getData());
+                                        }
+                                        //now have the double value in sum
+                                        final int goal = prefs.getInt("calorie goal",1);
+                                        //now easy algorithm to get score
+                                        final Double goal1 = new Double(goal);
+                                        Log.d("db",sum.toString());
+                                        Log.d("db",goal1.toString());
+
+                                        score  = 100.0 - ((Math.abs(sum-goal1)/goal1)*100.0);
+
+                                        final String group = prefs.getString("group_name",null);
+                                        final String date = prefs.getString("current date",null);
+                                        Map<String, Map<String,Double>> userMap = new HashMap<>();
+                                        Map<String,Double> scoreMap = new HashMap<>();
+                                        scoreMap.put("score",score);
+                                        userMap.put(email,scoreMap);
+                                        Log.d("db","made the data");
+                                        db.collection(group).document(date)
+                                                .set(userMap, SetOptions.merge())
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Log.d("db", "DocumentSnapshot successfully written!");
+                                                    }
+                                                })
+                                                .addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.w("db", "Error writing document", e);
+                                                    }
+                                                });
+
+                                    } else {
+                                        Log.d("db", "Missed the loop");
+                                    }
+                                }
+                                Log.d("db", "should be entered");
+                                counter = 0;
+                            }
+                            else{
+                                sum = 0.0;
+                            }
+                        } else {
+                            Log.w("db", "Error getting documents.", task.getException());
+                        }
+                    }
+                });
+
     }
 
 

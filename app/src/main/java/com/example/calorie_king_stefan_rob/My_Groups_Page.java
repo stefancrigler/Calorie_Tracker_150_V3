@@ -71,6 +71,8 @@ public class My_Groups_Page extends AppCompatActivity {
     }
 
     //update group
+
+
     public void update_group(View view){
         group_edit = (TextView) findViewById(R.id.new_group);
         final String groupname = group_edit.getText().toString();
@@ -143,4 +145,6 @@ public class My_Groups_Page extends AppCompatActivity {
                 });
 
     }
+
+
 }

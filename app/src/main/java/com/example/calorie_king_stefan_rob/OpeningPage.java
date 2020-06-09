@@ -31,7 +31,6 @@ public class OpeningPage extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = prefs.edit();
         if (! prefs.getString("current date",null).equals(date.toString())){
-            Log.d("db","hey ur here");
             editor.putInt("current number",000);
             editor.putString("current date", date.toString());
             editor.apply();
