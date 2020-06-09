@@ -44,7 +44,8 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Log.i("Daily Log","Going to Daily Log");
-                Intent homeScreenToDailyLogIntent = new Intent(HomeScreen.this, FatSecret_Search_Meal.class);
+//                Intent homeScreenToDailyLogIntent = new Intent(HomeScreen.this, FatSecret_Search_Meal.class);
+                Intent homeScreenToDailyLogIntent = new Intent(HomeScreen.this, DailyLogActivity.class);
                 startActivity(homeScreenToDailyLogIntent);
                 finish();
             }

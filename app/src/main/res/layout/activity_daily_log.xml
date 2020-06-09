@@ -21,26 +21,26 @@
 
     <Button
         android:id="@+id/button_add_workout"
-        android:layout_width="102dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="add workout"
-        app:layout_constraintBottom_toTopOf="@+id/button_add_scale_reading"
-        app:layout_constraintEnd_toStartOf="@+id/button_add_fatsecret"
-        app:layout_constraintStart_toEndOf="@+id/button_add_meal" />
+        app:layout_constraintBottom_toTopOf="@+id/button_add_preparation"
+        app:layout_constraintEnd_toStartOf="@+id/button_add_meal"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/button_add_meal"
-        android:layout_width="89dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
         android:text="add meal"
-        app:layout_constraintBottom_toTopOf="@+id/button_add_preparation"
-        app:layout_constraintEnd_toStartOf="@+id/button_add_workout"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/button_add_scale_reading"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_add_workout" />
 
     <Button
         android:id="@+id/button_add_preparation"
@@ -58,7 +58,6 @@
         android:id="@+id/button_add_scale_reading"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="add/edit scale reading"
@@ -72,24 +71,15 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/button_add_workout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_daily_log"
         app:layout_constraintVertical_bias="1.0" />
-
-    <Button
-        android:id="@+id/button_add_fatsecret"
-        android:layout_width="178dp"
-        android:layout_height="58dp"
-        android:layout_marginBottom="8dp"
-        android:text="Add Meal From Database"
-        app:layout_constraintBottom_toTopOf="@+id/button_add_scale_reading"
-        tools:layout_editor_absoluteX="226dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

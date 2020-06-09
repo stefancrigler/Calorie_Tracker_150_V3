@@ -21,7 +21,6 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firestore.v1.WriteResult;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -44,7 +43,7 @@ public class DailyLogActivity extends AppCompatActivity
    private FirebaseFirestore db;
 
    private FirebaseUser currentUser;
-   private String currentUserUID;
+   private String currentUserEmail;
 
    private String todaysDateFormatted;
    
@@ -58,16 +57,14 @@ public class DailyLogActivity extends AppCompatActivity
       addWorkoutButton = (Button) this.findViewById(R.id.button_add_workout);
       addPreparationButton = (Button) this.findViewById(R.id.button_add_preparation);
       addScaleReadingButton = (Button) this.findViewById(R.id.button_add_scale_reading);
-      addFatSecretButton = (Button) this.findViewById(R.id.button_add_fatsecret);
+//      addFatSecretButton = (Button) this.findViewById(R.id.button_add_fatsecret);
 
       todaysLogRecyclerView = (RecyclerView) this.findViewById(R.id.recycler_view_todays_log);
 
       currentUser = FirebaseAuth.getInstance().getCurrentUser();
-      currentUserUID = currentUser.getUid();
+      currentUserEmail = currentUser.getEmail();
 
-      Date c = Calendar.getInstance().getTime();
-      SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-      todaysDateFormatted = df.format(c);
+      todaysDateFormatted = LocalDate.now().toString();
 
 
       //addMealButton
@@ -77,26 +74,27 @@ public class DailyLogActivity extends AppCompatActivity
          public void onClick(View v)
          {
             Intent dailyLogToAddMealIntent = new Intent(DailyLogActivity.this, AddMealActivity.class);
-            dailyLogToAddMealIntent.putExtra("todaysDateFormatted", todaysDateFormatted);
-            dailyLogToAddMealIntent.putExtra("currentUserUID", currentUserUID);
+            //just get the date again in AddMealActivity to avoid bugs when activity changes are between dates
+//            dailyLogToAddMealIntent.putExtra("todaysDateFormatted", todaysDateFormatted);
+            dailyLogToAddMealIntent.putExtra("currentUserEmail", currentUserEmail);
             startActivity(dailyLogToAddMealIntent);
             finish();
          }
       });
 
-      //add database meal
-      addFatSecretButton.setOnClickListener(new View.OnClickListener()
-      {
-         @Override
-         public void onClick(View v)
-         {
-            Intent dailyLogToAdFatSecretIntent = new Intent(DailyLogActivity.this, FatSecret_Search_Meal.class);
-            dailyLogToAdFatSecretIntent.putExtra("todaysDateFormatted", todaysDateFormatted);
-            dailyLogToAdFatSecretIntent.putExtra("currentUserUID", currentUserUID);
-            startActivity(dailyLogToAdFatSecretIntent);
-            finish();
-         }
-      });
+//      //add database meal
+//      addFatSecretButton.setOnClickListener(new View.OnClickListener()
+//      {
+//         @Override
+//         public void onClick(View v)
+//         {
+//            Intent dailyLogToAdFatSecretIntent = new Intent(DailyLogActivity.this, FatSecret_Search_Meal.class);
+//            dailyLogToAdFatSecretIntent.putExtra("todaysDateFormatted", todaysDateFormatted);
+//            dailyLogToAdFatSecretIntent.putExtra("currentUserUID", currentUserUID);
+//            startActivity(dailyLogToAdFatSecretIntent);
+//            finish();
+//         }
+//      });
 
 
 

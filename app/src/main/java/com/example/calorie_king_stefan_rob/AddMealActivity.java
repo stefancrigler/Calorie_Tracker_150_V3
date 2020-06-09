@@ -19,10 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.lang.reflect.Array;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,9 +56,13 @@ public class AddMealActivity extends AppCompatActivity
 
    private TextView kcalRatioTextView;
 
+   private String todaysDateFormatted;
+
    private FirebaseFirestore db;
-//   private FirebaseUser currentUser;
-   private String currentUserUID;
+   private FirebaseUser currentUser;
+   private String currentUserEmail;
+
+   private HashMap ingredientHashMap;
 
    private static String TAG = "AddMealActivity";
 
@@ -66,7 +74,7 @@ public class AddMealActivity extends AppCompatActivity
       //
       // restore variables
       //
-      if (savedInstanceState != null)
+      if (savedInstanceState != null) // recover from orientation change
       {
 
       }
@@ -75,6 +83,10 @@ public class AddMealActivity extends AppCompatActivity
          Intent homeScreenToMyCalorieHistoryIntent = getIntent();
 
       }
+      currentUser = FirebaseAuth.getInstance().getCurrentUser();
+      currentUserEmail = currentUser.getEmail();
+      todaysDateFormatted = LocalDate.now().toString();
+
 
       // currentMealRecyclerView
       currentMealRecyclerView = (RecyclerView) this.findViewById(R.id.recycler_view_todays_log);
@@ -90,7 +102,8 @@ public class AddMealActivity extends AppCompatActivity
 
       // get access to the previously used ingredients stored on the database
       db = FirebaseFirestore.getInstance();
-      this.previouslyUsedIngredientDocReference = // TODO replace w/ actual user identifier
+      this.previouslyUsedIngredientDocReference =
+//              db.collection(currentUserEmail).document("previouslyUsedIngredients");
               db.collection("testUser00").document("previouslyUsedIngredients");
       previouslyUsedIngredientDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
       {
@@ -193,18 +206,30 @@ public class AddMealActivity extends AppCompatActivity
       // field 1: number of units and associated ratios
       // field 2 - 4: unit name, kcal, nUnits
       // field 5 - 7: ....
+      ArrayList<Object> currentIngredientArray = new ArrayList<>();
       int nUnitNamesAssociatedWithCurrIngredient;
+      ArrayList<String> currentIngredientListOfUnitNames = new ArrayList<>();
       for (int i = 0 ; i < nIngredients; ++i) // cycle thru ingr00000, ingr00001, etc...
       {
+         // fetch the array for ingr00000
+         currentIngredientArray.add(previouslyUsedIngredientsStraightFromDatabaseMap.get(currIngrIndexStringBuilder.toString()));
+
          // fetch "100kC chewy bar" here
-         this.ingredientNameStringArrayList
-             .add((String) previouslyUsedIngredientsStraightFromDatabaseMap.get(currIngrIndexStringBuilder.toString()));
+         this.ingredientNameStringArrayList.add((String) currentIngredientArray.get(0));
 
          // fetch 2 here
-         nUnitNamesAssociatedWithCurrIngredient = (int) previouslyUsedIngredientsStraightFromDatabaseMap.get(currIngrIndexStringBuilder);
+         nUnitNamesAssociatedWithCurrIngredient = (int) currentIngredientArray.get(1);
 
          // cycle thru 2 sets of three pieces of information associated w/ the unitname
-         //for
+         for (int j = 2 ; j < nUnitNamesAssociatedWithCurrIngredient; j+=3)
+         {
+            // currentIngredientArray.get(j) is "gram"
+            // currentIngredientArray.get(j+1) is 100, the numerator in the kCal/unit ratio
+            // currentIngredientArray.get(j+2) is 24, the denominator in the kCal/unit ratio
+            currentIngredientListOfUnitNames.add((String) currentIngredientArray.get(j));
+
+
+         }
 
 
          // increment the key to the next ingredient
