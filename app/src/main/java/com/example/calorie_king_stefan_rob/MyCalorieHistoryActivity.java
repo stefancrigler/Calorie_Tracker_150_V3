@@ -40,12 +40,10 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
    int counter = 0;
-   int sepCounter = 0;
    boolean done;
    Double sum = 0.0;
 
    TextView Goal_Progress;
-
    ListView listView;
 
    String[] TestNameArray = {"Stefan", "Rob", "Yoga", "Matt", "Kyle" , "Ryan"};
@@ -81,7 +79,6 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
       final ConstraintLayout mConstraintLayout = findViewById(R.id.theLayout);
 
       date_display = (TextView) findViewById(R.id.date_display);
-      ///date = String.valueOf(android.text.format.DateFormat.format("MM-dd-yyyy", new java.util.Date()));
       LocalDate date = LocalDate.now();
 
       final String display_value;
@@ -108,13 +105,6 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             final int posID = (int) id;
             String name = calorie_board.nameArray[position];
-            /*
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("meal_history_pref",name);
-            editor.apply();
-
-             */
             Intent intent = new Intent(MyCalorieHistoryActivity.this, Ingredient_Display.class);
             intent.putExtra("meal",name);
 
@@ -187,13 +177,6 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
                              Iterator it =all_inputs.entrySet().iterator();
                              while(it.hasNext()) {
                                 Map.Entry pair = (Map.Entry) it.next();
-                                /*
-                                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                                SharedPreferences.Editor editor = prefs.edit();
-                                editor.putString("meal_num",pair.getKey().toString());
-                                editor.apply();
-
-                                 */
 
                                 Map<String, Object> meal = (Map<String,Object>) pair.getValue();
                                 NameArray[counter] = (String) meal.get("name");

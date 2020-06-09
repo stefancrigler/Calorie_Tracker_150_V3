@@ -53,11 +53,8 @@ public class CalorieGoalBoard extends AppCompatActivity {
         final String[] NameArray = {"","","","","",""};
         final String[] ScoreArray= {"","","","","",""};
 
-        Log.d("db","Trying");
 
-        Log.d("db","Made it before the adapter");
         calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoard.this, TestNameArray, TestScoreArray, ImageArray);
-        Log.d("db","Made it after the adapter");
         listView = (ListView) findViewById(R.id.calories_board);
         listView.setAdapter(calorie_board);
 
@@ -108,7 +105,6 @@ public class CalorieGoalBoard extends AppCompatActivity {
                                         }
                                     }
                                     catch(NumberFormatException e){
-                                        Log.d("db", "failed");
                                         break;
                                     }
                                 }

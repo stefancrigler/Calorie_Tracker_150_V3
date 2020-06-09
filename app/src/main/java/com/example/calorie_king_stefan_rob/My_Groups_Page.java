@@ -48,20 +48,15 @@ public class My_Groups_Page extends AppCompatActivity {
         else{
             my_group.setText("My Group: " + group_name);
         }
-        /*
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        SharedPreferences.Editor editor = prefs.edit();
-
-
-         */
-
     }
 
+    //return to home screen
     public void back_to_home(View view){
         Intent intent = new Intent(My_Groups_Page.this, HomeScreen.class);
         startActivity(intent);
         finish();
     }
+    //see leaderboard
     public void to_leader(View view){
         SharedPreferences savedGroup = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String group_name = savedGroup.getString("group_name",null);
@@ -74,6 +69,8 @@ public class My_Groups_Page extends AppCompatActivity {
             finish();
         }
     }
+
+    //update group
     public void update_group(View view){
         group_edit = (TextView) findViewById(R.id.new_group);
         final String groupname = group_edit.getText().toString();

@@ -72,9 +72,6 @@ public class SignUp_Page extends AppCompatActivity{
                             SharedPreferences.Editor editor = prefs.edit();
                             final String em = email;
                             editor.putString("email",email);
-
-
-
                             Intent intent = new Intent(SignUp_Page.this, HomeScreen.class);
                             startActivity(intent);
                             finish();
@@ -84,17 +81,8 @@ public class SignUp_Page extends AppCompatActivity{
                             Log.w("Creating Account", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(SignUp_Page.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
                         }
                     }
                 });
-        // [END create_user_with_email]
     }
-
-
-
-
-
-
-
 }

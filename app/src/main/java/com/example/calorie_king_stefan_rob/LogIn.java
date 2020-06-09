@@ -43,40 +43,20 @@ public class LogIn extends AppCompatActivity {
 
         Log.d("db","begin grab");
 
+        //fat secret key and secret
         String key = "163485bd0ec542e9a48c564298abaf11";
         String secret = "ef51845af1854d2c9413ac42966c85aa";
-        /*
-        FatsecretService service = new FatsecretService(key, secret);
-        String query = "pasta";
-        com.fatsecret.platform.services.Response<CompactFood> response = service.searchFoods(query);
-        if (response == null) {
-            Log.i("db", "IS NULL :(");
-        }
-        else{
-            Log.d("db","not null");
-        }
 
-         */
-
+        /* This is a demo of grabbing from fat secret
         Log.d("db","query now");
         String query = "pasta";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         Listener listener = new Listener();
-
         Log.d("db","listener set");
-
         Request req = new Request(key, secret, listener);
-
         Log.d("db","req set");
-
         req.getFoods(requestQueue,query,2);
-
-        Log.d("db","req made");
-        Log.d("db","req made1");
-        Log.d("db","req made2");
-        Log.d("db","req made3");
-        Log.d("db","req made4");
-
+         */
 
 
     }
@@ -125,6 +105,7 @@ public class LogIn extends AppCompatActivity {
                     }
                 });
     }
+    //This listener class was used for sat secret responses
     class Listener implements ResponseListener {
         @Override
         public void onFoodListRespone(Response<CompactFood> response) {

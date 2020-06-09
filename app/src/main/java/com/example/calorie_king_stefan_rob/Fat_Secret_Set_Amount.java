@@ -31,7 +31,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.protobuf.DoubleValue;
+
+import org.joda.time.LocalDate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -140,13 +143,16 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
         }
     }
     public void add_meal(View view){
+        LocalDate date = LocalDate.now();
         Meal meal = new Meal(new HashMap<>(),name,100);
-        Map<String, Meal> meal000 = new HashMap<>();
-        meal000.put("meal005", meal);
+        Map<String, Meal> meal005 = new HashMap<>();
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final String email = prefs.getString("email", null);
-        db.collection(email).document("meal005")
-                .set(meal000)
+        int num = prefs.getInt("current number",000);
+        meal005.put("meal" + Integer.toString(num), meal);
+        db.collection(email).document(date.toString())
+                .set(meal005, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -159,6 +165,11 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
                         Log.w("db", "Error writing document", e);
                     }
                 });
+        SharedPreferences.Editor editor = prefs.edit();
+
+        num = num + 1;
+        editor.putInt("current number",num);
+        editor.apply();
         Intent intent = new Intent(Fat_Secret_Set_Amount.this, HomeScreen.class);
         startActivity(intent);
         finish();

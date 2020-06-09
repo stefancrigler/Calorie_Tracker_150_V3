@@ -39,6 +39,7 @@ public class HomeScreen extends AppCompatActivity {
         calorie_progress.setMax(goal_value);
 
 
+        //to daily log
         daily_log.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -48,7 +49,7 @@ public class HomeScreen extends AppCompatActivity {
                 finish();
             }
         });
-
+        //to settings
         settings.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -59,7 +60,7 @@ public class HomeScreen extends AppCompatActivity {
                 finish();
             }
         });
-
+        //to groups
         my_groups.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -71,6 +72,7 @@ public class HomeScreen extends AppCompatActivity {
             }
         });
 
+        //to calorie history
         my_calorie_history.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -81,6 +83,7 @@ public class HomeScreen extends AppCompatActivity {
                 finish();
             }
         });
+
 
     }
     public void test(View view){

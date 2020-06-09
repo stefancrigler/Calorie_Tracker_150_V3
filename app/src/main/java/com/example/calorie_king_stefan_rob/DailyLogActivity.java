@@ -35,6 +35,7 @@ public class DailyLogActivity extends AppCompatActivity
    private Button addWorkoutButton;
    private Button addPreparationButton;
    private Button addScaleReadingButton;
+   private Button addFatSecretButton;
 
    private RecyclerView todaysLogRecyclerView;
    private RecyclerView.Adapter todaysLogAdapter;
@@ -57,6 +58,7 @@ public class DailyLogActivity extends AppCompatActivity
       addWorkoutButton = (Button) this.findViewById(R.id.button_add_workout);
       addPreparationButton = (Button) this.findViewById(R.id.button_add_preparation);
       addScaleReadingButton = (Button) this.findViewById(R.id.button_add_scale_reading);
+      addFatSecretButton = (Button) this.findViewById(R.id.button_add_fatsecret);
 
       todaysLogRecyclerView = (RecyclerView) this.findViewById(R.id.recycler_view_todays_log);
 
@@ -81,6 +83,22 @@ public class DailyLogActivity extends AppCompatActivity
             finish();
          }
       });
+
+      //add database meal
+      addFatSecretButton.setOnClickListener(new View.OnClickListener()
+      {
+         @Override
+         public void onClick(View v)
+         {
+            Intent dailyLogToAdFatSecretIntent = new Intent(DailyLogActivity.this, FatSecret_Search_Meal.class);
+            dailyLogToAdFatSecretIntent.putExtra("todaysDateFormatted", todaysDateFormatted);
+            dailyLogToAdFatSecretIntent.putExtra("currentUserUID", currentUserUID);
+            startActivity(dailyLogToAdFatSecretIntent);
+            finish();
+         }
+      });
+
+
 
       //addWorkoutButton
       addWorkoutButton.setOnClickListener(new View.OnClickListener()
