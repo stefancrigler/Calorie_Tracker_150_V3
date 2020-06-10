@@ -34,7 +34,7 @@
 
     <Button
         android:id="@+id/signup"
-        android:layout_width="wrap_content"
+        android:layout_width="88dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="256dp"
         android:onClick="signUp"
@@ -62,9 +62,10 @@
         android:id="@+id/imageView"
         android:layout_width="176dp"
         android:layout_height="89dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="116dp"
         app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/gold_crown_logo" />
