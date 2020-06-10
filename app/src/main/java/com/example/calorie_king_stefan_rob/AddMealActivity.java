@@ -31,13 +31,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AddMealActivity extends    AppCompatActivity
-                             implements ConfirmDeleteIngredientDialogFragment.ConfirmDeleteIngredientDialogFragmentDialogListener
+                             implements ConfirmDeleteIngredientDialogFragment.ConfirmDeleteIngredientDialogFragmentDialogListener,
+                                        ConfirmAddMealDialogFragment.ConfirmAddMealDialogFragmentDialogListener
 {
    private DocumentReference previouslyUsedIngredientDocReference;
    private DocumentSnapshot previouslyUsedIngredientDoc;
 
    private Button addIngredientButton;
-   private Button finishAddingMealButton;
+   private Button addMealButton;
    private Button callNutritionxButton;
 
    private AutoCompleteTextView ingredientNameAutoCompleteTextView;
@@ -56,8 +57,10 @@ public class AddMealActivity extends    AppCompatActivity
    private ArrayList<String> ingredientToStringArrayList;
    private int ingredientIndexConfirmedForDeletion;
 
-   private ArrayList<Ingredient> ingredientsArrayList;
-   private MealObject addedMeal;
+   private String mealName;
+
+   private ArrayList<IngredientClass> ingredientsArrayList;
+   private MealClass addedMeal;
 
    private String todaysDateFormatted;
 
@@ -95,7 +98,9 @@ public class AddMealActivity extends    AppCompatActivity
       // get access to the previously used ingredients stored on the database
       db = FirebaseFirestore.getInstance();
       this.previouslyUsedIngredientDocReference =
+              // TODO replace this
 //              db.collection(currentUserEmail).document("previouslyUsedIngredients");
+
               // DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
               db.collection("testUser00").document("previouslyUsedIngredients");
               // DEBUG/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -315,7 +320,7 @@ public class AddMealActivity extends    AppCompatActivity
                nUnitInRatioEditText.setError("This can't be empty");
             else
             {
-               ingredientsArrayList.add(new Ingredient(
+               ingredientsArrayList.add(new IngredientClass(
                        ingredientNameAutoCompleteTextView.getText().toString(),
                        unitNameAutoCompleteTextView.getText().toString(),
                        Long.valueOf(nUnitEditText.getText().toString()),
@@ -335,18 +340,21 @@ public class AddMealActivity extends    AppCompatActivity
       });
 
       //
-      // finishAddingMealButton
+      // addMealButton
       //
-      finishAddingMealButton = (Button) this.findViewById(R.id.button_finish_adding_meal);
-      finishAddingMealButton.setOnClickListener(new View.OnClickListener()
+      addMealButton = (Button) this.findViewById(R.id.button_add_meal);
+      addMealButton.setOnClickListener(new View.OnClickListener()
       {
          @Override
          public void onClick(View v)
          {
+            if (!ingredientsArrayList.isEmpty())
+            {
+               DialogFragment confirmAddMealDialogFragment = ConfirmAddMealDialogFragment.newInstance();
+               confirmAddMealDialogFragment.show(getSupportFragmentManager(), "confirmAddMealDialogFragment");
 
-            //TODO enter meal name dialog
-            //TODO send meal to databases
-            //TODO parse ingredients, add new ingredients to previouslyUsedIngredients, update old ingredients as required
+            }
+
 
 
          }
@@ -384,9 +392,6 @@ public class AddMealActivity extends    AppCompatActivity
             DialogFragment confirmDeleteIngredientDialogFragment =
                     ConfirmDeleteIngredientDialogFragment.newInstance(confirmDeleteIngredientDialogFragmentBundle);
             confirmDeleteIngredientDialogFragment.show(getSupportFragmentManager(), "confirmDeleteIngredientDialogFragment");
-
-
-
          }
       });
    }
@@ -397,6 +402,7 @@ public class AddMealActivity extends    AppCompatActivity
       this.ingredientsArrayList.remove(this.ingredientIndexConfirmedForDeletion);
       this.ingredientToStringArrayList.remove(this.ingredientIndexConfirmedForDeletion);
       this.ingredientListViewArrayAdapter.notifyDataSetChanged();
+
    }
 
    @Override
@@ -407,6 +413,64 @@ public class AddMealActivity extends    AppCompatActivity
       Intent addMealActivityToDailyLogActivityIntent = new Intent(this, DailyLogActivity.class);
       startActivity(addMealActivityToDailyLogActivityIntent);
       finish();
+   }
+
+   @Override
+   public void onConfirmAddMealDialogPositiveClick(DialogFragment dialog)
+   {
+      EditText confirmAddMealDialogEditText = (EditText) dialog.getDialog().findViewById(R.id.editText_enter_meal_name);
+      this.mealName = confirmAddMealDialogEditText.getText().toString();
+      if(this.mealName.isEmpty())
+         this.mealName = "Unnamed meal";
+
+      // TODO get the nMeals variable from the database
+      // TODO add the meal to the database
+      // TODO add the modified or new ingredients to the database
+      //TODO send meal to databases
+      //TODO parse ingredients, add new ingredients to previouslyUsedIngredients, update old ingredients as required
+
+
+      StringBuilder currIngrIndexStringBuilder = new StringBuilder("ingr00000");
+      HashMap<String, IngredientClass> ingredientsInCurrentMeal = new HashMap<>();
+      for (int i = 0; i < ingredientsArrayList.size(); ++i)
+      {
+         ingredientsInCurrentMeal.put(currIngrIndexStringBuilder.toString(), ingredientsArrayList.get(i));
+
+         // increment the key to the next ingredient
+         if(i+1 < 10) // ingr00000 to ingr00009
+         {
+            currIngrIndexStringBuilder.replace(8,9,Integer.toString(i+1));
+         }
+         else if (i+1 < 100) // ingr00010 to ingr00099
+         {
+            currIngrIndexStringBuilder.replace(7,9,Integer.toString(i+1));
+         }
+         else if (i+1 < 1000) //ingr00100 to ingr00999
+         {
+            currIngrIndexStringBuilder.replace(6,8,Integer.toString(i+1));
+         }
+         else if (i+1 < 10000) //ingr01000 to ingr09999
+         {
+            currIngrIndexStringBuilder.replace(5,8,Integer.toString(i+1));
+         }
+         else if (i+1 < 100000)//ingr10000 to ingr99999
+         {
+            currIngrIndexStringBuilder.replace(4,8,Integer.toString(i+1));
+         }
+         else
+         {
+            // TODO LOW PRIORITY insert error handling code for >ingr99999
+         }
+      }
+
+      MealClass currentMeal = new MealClass(ingredientsInCurrentMeal, )
+
+   }
+
+   @Override
+   public void onConfirmAddMealDialogNegativeClick(DialogFragment dialog)
+   {
+
    }
 }
 

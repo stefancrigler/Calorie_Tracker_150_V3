@@ -139,8 +139,8 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
     public void add_meal(View view){
 
         LocalDate date = LocalDate.now();
-        MealObject meal = new MealObject(new HashMap<>(),name, cals.intValue());
-        Map<String, MealObject> meal005 = new HashMap<>();
+        MealClass meal = new MealClass(new HashMap<>(),name, cals.intValue());
+        Map<String, MealClass> meal005 = new HashMap<>();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final String email = prefs.getString("email", null);

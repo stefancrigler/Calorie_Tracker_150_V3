@@ -85,7 +85,7 @@ public class Ingredient_Display extends AppCompatActivity {
                                             Log.d("db","found the right meal");
                                             Log.d("db",m_name);
                                             Map<String, Object> m = (Map<String,Object>) pair.getValue();
-                                            Map<String,Ingredient> ingredients_list =  (Map<String,Ingredient>) m.get("ingredients");
+                                            Map<String, IngredientClass> ingredients_list =  (Map<String, IngredientClass>) m.get("ingredients");
                                             Iterator i = ingredients_list.entrySet().iterator();
                                             while(i.hasNext()){
                                                 Log.d("db","in the while loop");
