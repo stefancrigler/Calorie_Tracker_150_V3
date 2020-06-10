@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,8 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -30,7 +27,7 @@ import org.joda.time.LocalDate;
 import java.util.Iterator;
 import java.util.Map;
 
-public class CalorieGoalBoard extends AppCompatActivity {
+public class CalorieGoalBoardActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     String[] TestNameArray = {"Stefan", "Rob", "Yoga", "Matt", "Kyle" , "Ryan"};
@@ -76,7 +73,7 @@ public class CalorieGoalBoard extends AppCompatActivity {
         final String[] ScoreArray = {"", "", "", "", "", ""};
 
 
-        calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoard.this, NameArray, ScoreArray, ImageArray);
+        calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoardActivity.this, NameArray, ScoreArray, ImageArray);
         listView = (ListView) findViewById(R.id.calories_board);
         listView.setAdapter(calorie_board);
         get_data();
@@ -86,7 +83,7 @@ public class CalorieGoalBoard extends AppCompatActivity {
 
             Log.d("db","in true loop");
 
-        mConstraintLayout.setOnTouchListener(new OnSwipeTouchListener(CalorieGoalBoard.this) {
+        mConstraintLayout.setOnTouchListener(new OnSwipeTouchListener(CalorieGoalBoardActivity.this) {
             @Override
             public void onSwipeLeft() {
                 super.onSwipeLeft();
@@ -99,7 +96,7 @@ public class CalorieGoalBoard extends AppCompatActivity {
                 editor.putString("calorie_board_date",newDateString);
                 editor.apply();
                 date_show.setText(newDateString);
-                calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoard.this,emptyArray,emptyArray,ImageArray);
+                calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoardActivity.this,emptyArray,emptyArray,ImageArray);
                 listView.setAdapter(calorie_board);
                 get_data();
 
@@ -116,7 +113,7 @@ public class CalorieGoalBoard extends AppCompatActivity {
                 editor.putString("calorie_board_date",newDateString);
                 editor.apply();
                 date_show.setText(newDateString);
-                calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoard.this,emptyArray,emptyArray,ImageArray);
+                calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoardActivity.this,emptyArray,emptyArray,ImageArray);
                 listView.setAdapter(calorie_board);
                 get_data();
             }
@@ -128,7 +125,7 @@ public class CalorieGoalBoard extends AppCompatActivity {
 
 
     public void back_groups(View view){
-        Intent intent = new Intent(CalorieGoalBoard.this,My_Groups_Page.class);
+        Intent intent = new Intent(CalorieGoalBoardActivity.this, MyGroupsPageActivity.class);
         startActivity(intent);
         finish();
     }
@@ -235,7 +232,7 @@ public class CalorieGoalBoard extends AppCompatActivity {
                                         counter = counter + 1;
                                     }
                                     Log.d("db", "Trying to change");
-                                    calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoard.this, NameArray, ScoreArray, ImageArray);
+                                    calorie_board = new CustomListAdapter_scoreboard(CalorieGoalBoardActivity.this, NameArray, ScoreArray, ImageArray);
                                     listView.setAdapter(calorie_board);
                                 }
                             }

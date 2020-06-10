@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreenActivity extends AppCompatActivity {
 
     private ProgressBar calorieProgress;
     private ImageView daily_log;
@@ -56,7 +56,7 @@ public class HomeScreen extends AppCompatActivity {
         final String email = prefs.getString("email",null);
         goal_value = prefs.getInt("calorie goal", 2000);
         calorie_progress.setMax(goal_value);
-        update_user_score();
+//        update_user_score();
 
 
 
@@ -66,7 +66,7 @@ public class HomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view){
                 Log.i("Daily Log","Going to Daily Log");
-                Intent homeScreenToDailyLogIntent = new Intent(HomeScreen.this, DailyLogActivity.class);
+                Intent homeScreenToDailyLogIntent = new Intent(HomeScreenActivity.this, DailyLogActivity.class);
                 startActivity(homeScreenToDailyLogIntent);
                 finish();
             }
@@ -77,7 +77,7 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View view){
                 Log.i("Settings","Going to Settings");
                 //will take user to new activity
-                Intent intent = new Intent(HomeScreen.this, Settings.class);
+                Intent intent = new Intent(HomeScreenActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -88,7 +88,7 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View view){
                 Log.i("My Groups","Going to My Groups");
                 //will take user to new activity
-                Intent intent = new Intent(HomeScreen.this, My_Groups_Page.class);
+                Intent intent = new Intent(HomeScreenActivity.this, MyGroupsPageActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -100,7 +100,7 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(View view){
                 Log.i("My Calorie History","Going to My Calorie History");
                 Intent homeScreenToMyCalorieHistoryIntent =
-                        new Intent(HomeScreen.this, MyCalorieHistoryActivity.class);
+                        new Intent(HomeScreenActivity.this, MyCalorieHistoryActivity.class);
                 startActivity(homeScreenToMyCalorieHistoryIntent);
                 finish();
             }
@@ -148,8 +148,8 @@ public class HomeScreen extends AppCompatActivity {
 
                                         score  = 100.0 - ((Math.abs(sum-goal1)/goal1)*100.0);
 
-                                        final String group = prefs.getString("group_name",null);
-                                        final String date = prefs.getString("current date",null);
+                                        final String group = prefs.getString("group_name","");
+                                        final String date = prefs.getString("current date","");
                                         Map<String, Map<String,Double>> userMap = new HashMap<>();
                                         Map<String,Double> scoreMap = new HashMap<>();
                                         scoreMap.put("score",score);

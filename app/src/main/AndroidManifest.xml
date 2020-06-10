@@ -8,28 +8,29 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        android:windowSoftInputMode="adjustResize">
-        <activity android:name=".Fat_Secret_Set_Amount"></activity>
-        <activity android:name=".FatSecret_Search_Meal" />
-        <activity android:name=".Ingredient_Display" />
-        <activity android:name=".My_Groups_Page" />
-        <activity android:name=".CalorieGoalBoard" />
-        <activity android:name=".Settings" />
-        <activity android:name=".HomeScreen" />
-        <activity android:name=".SignUp_Page" />
-        <activity android:name=".LogIn" />
-        <activity android:name=".AddMealActivity" />
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".Fat_Secret_Set_Amount"></activity>   <!-- delete -->
+        <activity android:name=".FatSecret_Search_Meal" />            <!-- delete -->
+        <activity android:name=".Ingredient_Display" />               <!-- delete -->
+        <activity android:name=".MyGroupsPageActivity" />
+        <activity android:name=".CalorieGoalBoardActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".HomeScreenActivity" />
+        <activity android:name=".SignUpPageActivity" />
+        <activity android:name=".LogInActivity" />
+        <activity
+            android:name=".AddMealActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:screenOrientation="portrait"/>        <!-- portrait only-->
         <activity android:name=".AddPreparationActivity" />
         <activity android:name=".AddScaleReadingActivity" />
         <activity android:name=".AddWorkoutActivity" />
         <activity android:name=".DailyLogActivity" />
         <activity android:name=".MyCalorieHistoryActivity" />
-        <activity android:name=".OpeningPage">
+        <activity android:name=".OpeningPageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

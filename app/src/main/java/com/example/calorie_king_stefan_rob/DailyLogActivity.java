@@ -144,4 +144,12 @@ public class DailyLogActivity extends AppCompatActivity
 
 //      db = FirebaseFirestore.getInstance();
    }
+
+   @Override
+   public void onBackPressed()
+   {
+      Intent dailyLogActivityToHomeScreenActivityIntent = new Intent(this, HomeScreenActivity.class);
+      startActivity(dailyLogActivityToHomeScreenActivityIntent);
+      finish();
+   }
 }

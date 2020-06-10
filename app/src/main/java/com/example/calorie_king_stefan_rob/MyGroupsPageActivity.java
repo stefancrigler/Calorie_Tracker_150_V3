@@ -3,7 +3,6 @@ package com.example.calorie_king_stefan_rob;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +25,7 @@ import com.google.firebase.firestore.SetOptions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class My_Groups_Page extends AppCompatActivity {
+public class MyGroupsPageActivity extends AppCompatActivity {
 
     private static Button to_leaderboards;
     private static Button back_to_home;
@@ -52,7 +51,7 @@ public class My_Groups_Page extends AppCompatActivity {
 
     //return to home screen
     public void back_to_home(View view){
-        Intent intent = new Intent(My_Groups_Page.this, HomeScreen.class);
+        Intent intent = new Intent(MyGroupsPageActivity.this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
     }
@@ -61,10 +60,10 @@ public class My_Groups_Page extends AppCompatActivity {
         SharedPreferences savedGroup = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String group_name = savedGroup.getString("group_name",null);
         if(group_name == null) {
-            Toast.makeText(My_Groups_Page.this, "Create or Join a Group to See Leaderboards!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyGroupsPageActivity.this, "Create or Join a Group to See Leaderboards!", Toast.LENGTH_SHORT).show();
         }
         else {
-            Intent intent = new Intent(My_Groups_Page.this, CalorieGoalBoard.class);
+            Intent intent = new Intent(MyGroupsPageActivity.this, CalorieGoalBoardActivity.class);
             startActivity(intent);
             finish();
         }
@@ -88,7 +87,7 @@ public class My_Groups_Page extends AppCompatActivity {
                                 count = count + 1;
                             }
                             if(count < 6){
-                                Toast.makeText(My_Groups_Page.this, "Joined Group: " + groupname, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MyGroupsPageActivity.this, "Joined Group: " + groupname, Toast.LENGTH_SHORT).show();
                                 my_group.setText("My Group: " + groupname);
                                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 final String email = prefs.getString("email",null);
@@ -114,7 +113,7 @@ public class My_Groups_Page extends AppCompatActivity {
                                         });
                             }
                             else{
-                                Toast.makeText(My_Groups_Page.this, "Sorry, this group is full", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MyGroupsPageActivity.this, "Sorry, this group is full", Toast.LENGTH_SHORT).show();
                                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 final String email = prefs.getString("email",null);
                                 SharedPreferences.Editor editor = prefs.edit();

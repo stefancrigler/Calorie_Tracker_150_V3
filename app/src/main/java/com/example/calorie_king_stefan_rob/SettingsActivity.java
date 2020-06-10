@@ -17,16 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
     private Button calorie_goal_update;
     private TextView goal_update;
     private TextView calorie_goal;
@@ -207,11 +205,11 @@ public class Settings extends AppCompatActivity {
                     });
         }
         catch(NumberFormatException e){
-            Toast.makeText(Settings.this, "Not a Valid Calorie Goal",Toast.LENGTH_SHORT).show();
+            Toast.makeText(SettingsActivity.this, "Not a Valid Calorie Goal",Toast.LENGTH_SHORT).show();
         }
     }
     public void back_to_home(View view){
-        Intent intent = new Intent(Settings.this, HomeScreen.class);
+        Intent intent = new Intent(SettingsActivity.this, HomeScreenActivity.class);
         db.collection("users")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -12,13 +12,10 @@ import android.widget.TextView;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
 import com.fatsecret.platform.model.CompactFood;
 import com.fatsecret.platform.model.CompactRecipe;
 import com.fatsecret.platform.model.Food;
 import com.fatsecret.platform.model.Recipe;
-import com.fatsecret.platform.services.FatsecretService;
 import com.fatsecret.platform.services.Response;
 import com.fatsecret.platform.services.android.ResponseListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,11 +23,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.fatsecret.platform.services.android.Request;
 
 import java.util.List;
 
-public class LogIn extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private TextView username;
     private TextView password;
@@ -61,7 +57,7 @@ public class LogIn extends AppCompatActivity {
 
     }
     public void back_login(View view){
-        Intent intent  = new Intent(LogIn.this, OpeningPage.class);
+        Intent intent  = new Intent(LogInActivity.this, OpeningPageActivity.class);
         startActivity(intent);
         finish();
     }
@@ -89,14 +85,14 @@ public class LogIn extends AppCompatActivity {
                             final String em = email;
                             editor.putString("email",email);
                             editor.apply();
-                            Intent intent = new Intent(LogIn.this, HomeScreen.class);
+                            Intent intent = new Intent(LogInActivity.this, HomeScreenActivity.class);
                             startActivity(intent);
                             finish();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Signing In", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LogIn.this, "Authentication failed.",
+                            Toast.makeText(LogInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
                         }

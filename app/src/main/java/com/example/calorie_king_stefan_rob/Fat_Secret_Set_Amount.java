@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,20 +23,14 @@ import com.fatsecret.platform.model.Serving;
 import com.fatsecret.platform.services.Response;
 import com.fatsecret.platform.services.android.Request;
 import com.fatsecret.platform.services.android.ResponseListener;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
-import com.google.protobuf.DoubleValue;
 
 import org.joda.time.LocalDate;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -146,8 +139,8 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
     public void add_meal(View view){
 
         LocalDate date = LocalDate.now();
-        Meal meal = new Meal(new HashMap<>(),name, cals.intValue());
-        Map<String, Meal> meal005 = new HashMap<>();
+        MealObject meal = new MealObject(new HashMap<>(),name, cals.intValue());
+        Map<String, MealObject> meal005 = new HashMap<>();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         final String email = prefs.getString("email", null);
@@ -172,7 +165,7 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
         num = num + 1;
         editor.putInt("current number",num);
         editor.apply();
-        Intent intent = new Intent(Fat_Secret_Set_Amount.this, HomeScreen.class);
+        Intent intent = new Intent(Fat_Secret_Set_Amount.this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
 

@@ -8,17 +8,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -26,7 +22,6 @@ import org.joda.time.LocalDate;
 
 import java.util.Iterator;
 import java.util.Map;
-import java.util.jar.Attributes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,7 +59,7 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
 
    @Override
    public void onBackPressed(){
-      Intent intent = new Intent(MyCalorieHistoryActivity.this, HomeScreen.class);
+      Intent intent = new Intent(MyCalorieHistoryActivity.this, HomeScreenActivity.class);
       startActivity(intent);
       finish();
    }

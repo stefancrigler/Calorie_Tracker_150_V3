@@ -19,7 +19,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignUp_Page extends AppCompatActivity{
+public class SignUpPageActivity extends AppCompatActivity{
 
     private static Button sign_up_button;
     private static Button back_button;
@@ -44,7 +44,7 @@ public class SignUp_Page extends AppCompatActivity{
     }
 
     public void back(View view){
-        Intent intent  = new Intent(SignUp_Page.this, OpeningPage.class);
+        Intent intent  = new Intent(SignUpPageActivity.this, OpeningPageActivity.class);
         startActivity(intent);
         finish();
     }
@@ -72,14 +72,14 @@ public class SignUp_Page extends AppCompatActivity{
                             SharedPreferences.Editor editor = prefs.edit();
                             final String em = email;
                             editor.putString("email",email);
-                            Intent intent = new Intent(SignUp_Page.this, HomeScreen.class);
+                            Intent intent = new Intent(SignUpPageActivity.this, HomeScreenActivity.class);
                             startActivity(intent);
                             finish();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Creating Account", "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(SignUp_Page.this, "Authentication failed.",
+                            Toast.makeText(SignUpPageActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }

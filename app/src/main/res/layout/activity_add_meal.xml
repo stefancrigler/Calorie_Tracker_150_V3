@@ -19,27 +19,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_current_meal"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toTopOf="@+id/autoCompleteTextView_ingredient_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_daily_log" />
-
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView_ingredient_name"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:hint="ingredient name"
         app:layout_constraintBottom_toTopOf="@+id/autoCompleteTextView_unit_name"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,11 +34,10 @@
     <AutoCompleteTextView
         android:id="@+id/autoCompleteTextView_unit_name"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:hint="unit name"
-        android:text="gram"
         app:layout_constraintBottom_toTopOf="@+id/button_call_nutritionx"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editText_n_unit" />
@@ -60,10 +45,10 @@
     <EditText
         android:id="@+id/editText_n_unit"
         android:layout_width="130dp"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="n Units"
         android:inputType="numberDecimal"
@@ -74,23 +59,23 @@
     <EditText
         android:id="@+id/editText_nkcal_in_ratio"
         android:layout_width="200dp"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="n kCal"
         android:inputType="numberSigned"
         app:layout_constraintBottom_toTopOf="@+id/button_finish_adding_meal"
-        app:layout_constraintEnd_toStartOf="@+id/editText_unit_in_ratio"
+        app:layout_constraintEnd_toStartOf="@+id/editText_n_unit_in_ratio"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText_unit_in_ratio"
+        android:id="@+id/editText_n_unit_in_ratio"
         android:layout_width="0dp"
-        android:layout_height="60dp"
+        android:layout_height="45dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="n Units"
         android:inputType="numberSigned"
@@ -100,7 +85,7 @@
 
     <Button
         android:id="@+id/button_add_ingredient"
-        android:layout_width="260dp"
+        android:layout_width="170dp"
         android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -118,14 +103,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button_add_ingredient"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Finish adding meal" />
+        android:text="Finish adding meal" />
 
     <TextView
         android:id="@+id/textView_kcal_ratio"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:text="kCal / measurement unit:"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/editText_nkcal_in_ratio"
@@ -137,11 +122,24 @@
         android:layout_height="60dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:text="get ratio from nutritionx"
-        app:layout_constraintBottom_toTopOf="@+id/editText_unit_in_ratio"
+        app:layout_constraintBottom_toTopOf="@+id/editText_n_unit_in_ratio"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView_kcal_ratio" />
+
+    <ListView
+        android:id="@+id/listView_ingredient_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/autoCompleteTextView_ingredient_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_daily_log" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
