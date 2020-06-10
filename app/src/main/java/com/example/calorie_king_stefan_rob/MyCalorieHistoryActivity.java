@@ -173,14 +173,19 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
                              Iterator it =all_inputs.entrySet().iterator();
                              while(it.hasNext()) {
                                 Map.Entry pair = (Map.Entry) it.next();
-
-                                Map<String, Object> meal = (Map<String,Object>) pair.getValue();
-                                NameArray[counter] = (String) meal.get("name");
-                                Double cal = (Double) meal.get("calories");
-                                CalorieArray[counter] = Double.toString(cal);
-                                sum = sum + cal;
-                                counter = counter + 1;
-                                Log.d("db", document.getId() + " => " + document.getData());
+                                if(pair.getKey().toString().equals("nMeals") || pair.getKey().toString().equals("nWorkouts")){
+                                   //is not a meal type
+                                   continue;
+                                }
+                                else {
+                                   Map<String, Object> meal = (Map<String,Object>) pair.getValue();
+                                   NameArray[counter] = (String) meal.get("name");
+                                   Double cal = (Double) meal.get("calories");
+                                   CalorieArray[counter] = Double.toString(cal);
+                                   sum = sum + cal;
+                                   counter = counter + 1;
+                                   Log.d("db", document.getId() + " => " + document.getData());
+                                }
                              }
                              calorie_board = new CustomListAdapter_scoreboard(MyCalorieHistoryActivity.this, NameArray, CalorieArray, ImageArray);
                              listView.setAdapter(calorie_board);
