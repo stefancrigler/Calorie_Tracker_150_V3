@@ -41,12 +41,10 @@ public class MyGroupsPageActivity extends AppCompatActivity {
         my_group = (TextView) findViewById(R.id.textView5);
         SharedPreferences savedGroup = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         String group_name = savedGroup.getString("group_name",null);
-        if(group_name == null){
-            my_group.setText("Create or Join a Group by typing in the name below!");
-        }
-        else{
-            my_group.setText("My Group: " + group_name);
-        }
+
+        my_group.setText("Create or Join a Group by typing in the name below!");
+
+
     }
 
     //return to home screen

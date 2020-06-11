@@ -159,32 +159,38 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
       String email = prefs.getString("email",null);
       final String calorie_goal = Integer.toString(prefs.getInt("calorie goal",2000));
       Goal_Progress = findViewById(R.id.Goal_Progress);
+      Log.d("db","in grab");
 
       db.collection(email)
               .get()
               .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                  @Override
                  public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    Log.d("db","onComplete");
                     if (task.isSuccessful()) {
                        for (QueryDocumentSnapshot document : task.getResult()) {
                           Log.d("db",document.getId());
                           if(document.getId().toString().equals(prefs.getString("calorie_history_date",null))) {
                              Map<String,Object> all_inputs = ( Map<String,Object>) document.getData();
                              Iterator it =all_inputs.entrySet().iterator();
+                             Log.d("db","before while");
                              while(it.hasNext()) {
                                 Map.Entry pair = (Map.Entry) it.next();
                                 if(pair.getKey().toString().equals("nMeals") || pair.getKey().toString().equals("nWorkouts")){
                                    //is not a meal type
+                                   Log.d("db","continue section");
                                    continue;
                                 }
                                 else {
                                    Map<String, Object> meal = (Map<String,Object>) pair.getValue();
                                    NameArray[counter] = (String) meal.get("name");
-                                   Double cal = (Double) meal.get("calories");
+                                   Double cal = (Double) meal.get("nCalories");
+                                   Log.d("db","adding to arrays");
                                    CalorieArray[counter] = Double.toString(cal);
                                    sum = sum + cal;
+                                   Log.d("db","added in");
                                    counter = counter + 1;
-                                   Log.d("db", document.getId() + " => " + document.getData());
+                                   Log.d("db","end loop");
                                 }
                              }
                              calorie_board = new CustomListAdapter_scoreboard(MyCalorieHistoryActivity.this, NameArray, CalorieArray, ImageArray);
