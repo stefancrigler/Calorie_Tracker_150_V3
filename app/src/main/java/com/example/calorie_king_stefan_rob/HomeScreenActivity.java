@@ -141,6 +141,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                                             else {
                                                 Map<String, Object> meal = (Map<String, Object>) pair.getValue();
                                                 Double cal = (Double) meal.get("nCalories");
+
                                                 sum = sum + cal;
                                                 counter = counter + 1;
                                                 Log.d("db", document.getId() + " => " + document.getData());

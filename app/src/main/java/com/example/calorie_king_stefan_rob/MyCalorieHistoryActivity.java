@@ -50,8 +50,8 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
    Context context;
    CustomListAdapter_scoreboard calorie_board;
 
-   final String[] NameArray = {"","","","","",""};
-   final String[] CalorieArray= {"","","","","",""};
+   String[] NameArray = {"","","","","",""};
+   String[] CalorieArray= {"","","","","",""};
 
 
    final String[] emptyArray = {"","","","","",""};
@@ -128,6 +128,10 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("calorie_history_date",newDateString);
             editor.apply();
+            for(int i = 0; i < 6; i++){
+               NameArray[i] = "";
+               CalorieArray[i] = "";
+            }
             date_display.setText(newDateString);
             calorie_board = new CustomListAdapter_scoreboard(MyCalorieHistoryActivity.this,emptyArray,emptyArray,ImageArray);
             listView.setAdapter(calorie_board);
@@ -144,6 +148,10 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
             SharedPreferences.Editor editor = prefs.edit();
             editor.putString("calorie_history_date",newDateString);
             editor.apply();
+            for(int i = 0; i < 6; i++){
+               NameArray[i] = "";
+               CalorieArray[i] = "";
+            }
             date_display.setText(newDateString);
             calorie_board = new CustomListAdapter_scoreboard(MyCalorieHistoryActivity.this,emptyArray,emptyArray,ImageArray);
             listView.setAdapter(calorie_board);
@@ -185,6 +193,7 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
                                    Map<String, Object> meal = (Map<String,Object>) pair.getValue();
                                    NameArray[counter] = (String) meal.get("name");
                                    Double cal = (Double) meal.get("nCalories");
+
                                    Log.d("db","adding to arrays");
                                    CalorieArray[counter] = Double.toString(cal);
                                    sum = sum + cal;
