@@ -133,11 +133,17 @@ public class HomeScreenActivity extends AppCompatActivity {
                                         Iterator it = all_inputs.entrySet().iterator();
                                         while (it.hasNext()) {
                                             Map.Entry pair = (Map.Entry) it.next();
-                                            Map<String, Object> meal = (Map<String, Object>) pair.getValue();
-                                            Double cal = (Double) meal.get("calories");
-                                            sum = sum + cal;
-                                            counter = counter + 1;
-                                            Log.d("db", document.getId() + " => " + document.getData());
+                                            if(pair.getKey().toString().equals("nMeals") || pair.getKey().toString().equals("nWorkouts")){
+                                                //is not a meal type
+                                                continue;
+                                            }
+                                            else {
+                                                Map<String, Object> meal = (Map<String, Object>) pair.getValue();
+                                                Double cal = (Double) meal.get("calories");
+                                                sum = sum + cal;
+                                                counter = counter + 1;
+                                                Log.d("db", document.getId() + " => " + document.getData());
+                                            }
                                         }
                                         //now have the double value in sum
                                         final int goal = prefs.getInt("calorie goal",1);

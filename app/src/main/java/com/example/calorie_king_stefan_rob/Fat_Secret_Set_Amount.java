@@ -107,7 +107,6 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
                 String cal = serving.getCalories().toString();
                 cals = serving.getCalories();
                 calories.setText("Calories: " + cal);
-
             }
 
 
@@ -168,8 +167,6 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
         Intent intent = new Intent(Fat_Secret_Set_Amount.this, HomeScreenActivity.class);
         startActivity(intent);
         finish();
-
-
 
     }
 
