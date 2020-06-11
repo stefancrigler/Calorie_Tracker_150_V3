@@ -56,7 +56,7 @@ public class HomeScreenActivity extends AppCompatActivity {
         final String email = prefs.getString("email",null);
         goal_value = prefs.getInt("calorie goal", 2000);
         calorie_progress.setMax(goal_value);
-//        update_user_score();
+        update_user_score();
 
 
 
@@ -124,6 +124,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        Log.d("db","in home complete listener");
                         if (task.isSuccessful()) {
                             if(task.getResult().size() > 0) {
                                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -139,7 +140,7 @@ public class HomeScreenActivity extends AppCompatActivity {
                                             }
                                             else {
                                                 Map<String, Object> meal = (Map<String, Object>) pair.getValue();
-                                                Double cal = (Double) meal.get("calories");
+                                                Double cal = (Double) meal.get("nCalories");
                                                 sum = sum + cal;
                                                 counter = counter + 1;
                                                 Log.d("db", document.getId() + " => " + document.getData());
