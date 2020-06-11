@@ -54,13 +54,14 @@ public class Ingredient_Display extends AppCompatActivity {
         final Intent intent = getIntent();
         final String meal_name = intent.getStringExtra("meal");
         Log.d("db",meal_name);
-
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String email = prefs.getString("email",null);
         calorie_board = new CustomListAdapter_scoreboard(Ingredient_Display.this, NameArray, AmountArray, ImageArray);
         Log.d("db","Made it after the adapter");
         listView = (ListView) findViewById(R.id.ingred_list);
         listView.setAdapter(calorie_board);
 
-        db.collection("testUser02")
+        db.collection(email)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -70,7 +71,7 @@ public class Ingredient_Display extends AppCompatActivity {
                             String date = prefs.getString("calorie_history_date", null);
                             Log.d("db","was successful");
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(document.getId().equals(date)){
+                                if(document.getId().equals(prefs.getString("calorie_history_date", null))){
                                     Log.d("db","found correct date");
                                     //have the correct day
                                     //need the correct meal
@@ -79,8 +80,15 @@ public class Ingredient_Display extends AppCompatActivity {
                                     while(it.hasNext()) {
                                         Map.Entry pair = (Map.Entry) it.next();
                                         Log.d("db",pair.getKey().toString());
-                                        Map<String,Object> m1 = (Map<String,Object>) pair.getValue();
-                                        String m_name = (String) m1.get("name");
+                                        String m_name;
+                                        if(pair.getKey().toString().equals("nMeals") || pair.getKey().toString().equals("nWorkouts")){
+                                            //is not a meal type
+                                            m_name = "NOTTHEMEAL";
+                                        }
+                                        else{
+                                            Map<String,Object> m1 = (Map<String,Object>) pair.getValue();
+                                            m_name = (String) m1.get("name");
+                                        }
                                         if(meal_name.equals(m_name)){
                                             Log.d("db","found the right meal");
                                             Log.d("db",m_name);
@@ -91,14 +99,16 @@ public class Ingredient_Display extends AppCompatActivity {
                                                 Log.d("db","in the while loop");
                                                 Map.Entry ingred = (Map.Entry) i.next();
                                                 Map<String,Object> temp =  (Map<String,Object>) ingred.getValue();
-                                                Log.d("db",temp.get("name").toString());
-                                                NameArray[counter] = temp.get("name").toString();
+                                                //Log.d("db",temp.get("name").toString());
+                                                NameArray[counter] = temp.get("ingredientName").toString();
                                                 StringBuilder stringBuilder = new StringBuilder(100);
-                                                Double nU = (Double) temp.get("nUnit");
-                                                String f = Double.toString(nU);
+                                                Long nU = (Long) temp.get("nUnit");
+                                                String f = Long.toString(nU);
                                                 stringBuilder.append(f);
                                                 stringBuilder.append(" ");
-                                                stringBuilder.append(temp.get("unit").toString());
+                                                stringBuilder.append(temp.get("unitName").toString());
+                                                stringBuilder.append("    Calories: ");
+                                                stringBuilder.append(temp.get("calories").toString());
                                                 AmountArray[counter] = stringBuilder.toString();
                                                 counter = counter + 1;
                                             }
@@ -106,7 +116,9 @@ public class Ingredient_Display extends AppCompatActivity {
                                         }
                                     }
                                 }
-                                Log.d("db", document.getId() + " => " + document.getData());
+                                else{
+                                    Log.d("db","missed if");
+                                }
                             }
                             Log.d("db","Begin change");
                             calorie_board = new CustomListAdapter_scoreboard(Ingredient_Display.this, NameArray, AmountArray, ImageArray);
