@@ -56,6 +56,7 @@ public class SettingsActivity extends AppCompatActivity {
         Meal meal = new Meal(m,"cinnabread",100);
         Map<String, Meal> meal000 = new HashMap<>();
         meal000.put("meal000",meal);
+
         db.collection("testUser02").document("2020-06-03")
                 .set(meal000, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

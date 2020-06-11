@@ -12,13 +12,38 @@ public class MealClass
     public MealClass(){
         ingredients = new HashMap<>();
         name = "n/a";
-        calories = 0;
+        nCalories = 0;
+    }
+
+    public MealClass(String workoutName, float calories)
+    {
+        this.name = workoutName;
+        this.nCalories = calories;
     }
 
     public MealClass(Map<String, IngredientClass> i, String n)
     {
+        this.nCalories = 0;
+        ingredients = i;
+        for(Map.Entry ingredientEntry: this.ingredients.entrySet())
+        {
+            this.nCalories += ((float) ((IngredientClass) ingredientEntry.getValue()).calories);
+        }
+
+        name = n;
+
+    }
+
+    public MealClass(Map<String, IngredientClass> i, String n, float nCalories)
+    {
+        this.nCalories = nCalories;
         ingredients = i;
         name = n;
-        calories = c;
+
+    }
+
+    public String toString()
+    {
+        return String.format("%-50s/%-6d calories", this.name, this.nCalories );
     }
 }

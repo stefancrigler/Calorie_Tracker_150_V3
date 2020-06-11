@@ -68,7 +68,7 @@ public class ConfirmAddMealDialogFragment extends DialogFragment
       LayoutInflater inflater = requireActivity().getLayoutInflater();
       alertDialogBuilder.setMessage("Enter meal name: ")
               .setView(inflater.inflate(R.layout.dialog_confirm_delete_ingredient, null))
-              .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+              .setPositiveButton("OK", new DialogInterface.OnClickListener()
               {
                  public void onClick(DialogInterface dialog, int id)
                  {

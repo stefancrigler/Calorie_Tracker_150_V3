@@ -74,7 +74,7 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="4:56AM build"
+        android:text="2020 06 11 4:56AM build"
         tools:layout_editor_absoluteX="256dp"
         tools:layout_editor_absoluteY="583dp" />
 

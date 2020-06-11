@@ -23,10 +23,9 @@
             android:name=".AddMealActivity"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"/>        <!-- portrait only-->
-        <activity android:name=".AddPreparationActivity" />
-        <activity android:name=".AddScaleReadingActivity" />
-        <activity android:name=".AddWorkoutActivity" />
-        <activity android:name=".DailyLogActivity" />
+        <activity
+            android:name=".DailyLogActivity"
+            android:screenOrientation="portrait"/>        <!-- portrait only-->
         <activity android:name=".MyCalorieHistoryActivity" />
         <activity android:name=".OpeningPageActivity">
             <intent-filter>

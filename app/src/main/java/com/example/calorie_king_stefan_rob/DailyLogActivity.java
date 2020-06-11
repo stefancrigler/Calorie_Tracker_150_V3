@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -12,17 +14,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firestore.v1.WriteResult;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -32,20 +38,22 @@ public class DailyLogActivity extends AppCompatActivity
 {
    private Button addMealButton;
    private Button addWorkoutButton;
-   private Button addPreparationButton;
    private Button addScaleReadingButton;
-   private Button addFatSecretButton;
+//   private Button addFatSecretButton;
 
-   private RecyclerView todaysLogRecyclerView;
-   private RecyclerView.Adapter todaysLogAdapter;
-   private LinearLayoutManager todaysLogLinearLayoutManager;
+   private ListView todaysLogListView;
+   private ArrayAdapter todaysLogListViewArrayAdapter;
+   private ArrayList<String> todaysLogListViewArrayList;
 
    private FirebaseFirestore db;
+   private DocumentReference todaysMealsDocReference;
+   private DocumentSnapshot todaysMealsDocumentSnapshot;
 
-   private FirebaseUser currentUser;
    private String currentUserEmail;
-
    private String todaysDateFormatted;
+
+   private static String TAG = "DailyLogActivity";
+
    
    @Override
    protected void onCreate(Bundle savedInstanceState)
@@ -55,14 +63,11 @@ public class DailyLogActivity extends AppCompatActivity
 
       addMealButton = (Button) this.findViewById(R.id.button_add_meal);
       addWorkoutButton = (Button) this.findViewById(R.id.button_add_workout);
-      addPreparationButton = (Button) this.findViewById(R.id.button_add_preparation);
       addScaleReadingButton = (Button) this.findViewById(R.id.button_add_scale_reading);
 //      addFatSecretButton = (Button) this.findViewById(R.id.button_add_fatsecret);
 
-      todaysLogRecyclerView = (RecyclerView) this.findViewById(R.id.recycler_view_todays_log);
 
-      currentUser = FirebaseAuth.getInstance().getCurrentUser();
-      currentUserEmail = currentUser.getEmail();
+      currentUserEmail = FirebaseAuth.getInstance().getCurrentUser().getEmail();
 
       todaysDateFormatted = LocalDate.now().toString();
 
@@ -104,23 +109,10 @@ public class DailyLogActivity extends AppCompatActivity
          @Override
          public void onClick(View v)
          {
-            Intent dailyLogToAddWorkoutIntent = new Intent(DailyLogActivity.this, AddWorkoutActivity.class);
-            startActivity(dailyLogToAddWorkoutIntent);
-            finish();
+            // TODO dialog that collects workout information
          }
       });
 
-      //addPreparationButton
-      addPreparationButton.setOnClickListener(new View.OnClickListener()
-      {
-         @Override
-         public void onClick(View v)
-         {
-            Intent dailyLogToAddPreparationIntent = new Intent(DailyLogActivity.this, AddPreparationActivity.class);
-            startActivity(dailyLogToAddPreparationIntent);
-            finish();
-         }
-      });
 
       //addScaleReadingButton
       addScaleReadingButton.setOnClickListener(new View.OnClickListener()
@@ -128,21 +120,90 @@ public class DailyLogActivity extends AppCompatActivity
          @Override
          public void onClick(View v)
          {
-            Intent dailyLogToAddScaleReadingIntent = new Intent(DailyLogActivity.this, AddScaleReadingActivity.class);
-            startActivity(dailyLogToAddScaleReadingIntent);
-            finish();
+            // TODO dialog that collects bathroom scale reading
          }
       });
 
-      // list of today's meals and workouts
-//      todaysLogRecyclerView.setHasFixedSize(true);
-//      todaysLogLinearLayoutManager = new LinearLayoutManager(this);
-//      todaysLogRecyclerView.setLayoutManager(todaysLogLinearLayoutManager);
+      // get access to today's meals stored on the database
+      db = FirebaseFirestore.getInstance();
 
-//      dailyLogAdapter = new MyAdapter
-//      todaysLogRecyclerView.setAdapter(todaysLogAdapter);
 
-//      db = FirebaseFirestore.getInstance();
+      this.todaysMealsDocReference =
+              db.collection(currentUserEmail).document(todaysDateFormatted);
+
+      todaysMealsDocReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>()
+      {
+         @Override
+         public void onComplete(@NonNull Task<DocumentSnapshot> task)
+         {
+            if (task.isSuccessful())
+            {
+               todaysMealsDocumentSnapshot = task.getResult();
+               if(todaysMealsDocumentSnapshot.exists())
+               {
+                  Log.i(TAG, "Retrieved todays meals doc from Cloud Firestore");
+                  populateDailyLogList();
+               }
+            }
+            else
+            {
+               Log.i(TAG, "get failed with ", task.getException());
+            }
+
+         }
+      });
+
+
+   }
+
+   private void populateDailyLogList()
+   {
+      Map<String, Object> todaysMealsStraightFromDatabaseMap = this.todaysMealsDocumentSnapshot.getData();
+      int nMeals = ((Long)todaysMealsStraightFromDatabaseMap.get("nMeals")).intValue();
+      StringBuilder currMealIndexStringBuilder = new StringBuilder("meal00000");
+      String currMealListItemNameString;
+      double currMealListItemNCalories;
+      this.todaysLogListViewArrayList = new ArrayList<>();
+      for (int i = 0 ; i < nMeals; ++i) // cycle thru ingr00000, ingr00001, etc...
+      {
+         currMealListItemNameString = (String)((HashMap) todaysMealsStraightFromDatabaseMap.get(currMealIndexStringBuilder.toString())).get("name");
+         currMealListItemNCalories =
+                 (double) ((HashMap) todaysMealsStraightFromDatabaseMap.get(currMealIndexStringBuilder.toString())).get("nCalories");
+         this.todaysLogListViewArrayList.add(
+                 String.format("%-30s/%-6d calories", currMealListItemNameString, (int) currMealListItemNCalories)
+         );
+
+         if(i+1 < 10) // ingr00000 to ingr00009
+         {
+            currMealIndexStringBuilder.replace(8,9,Integer.toString(i+1));
+         }
+         else if (i+1 < 100) // ingr00010 to ingr00099
+         {
+            currMealIndexStringBuilder.replace(7,9,Integer.toString(i+1));
+         }
+         else if (i+1 < 1000) //ingr00100 to ingr00999
+         {
+            currMealIndexStringBuilder.replace(6,8,Integer.toString(i+1));
+         }
+         else if (i+1 < 10000) //ingr01000 to ingr09999
+         {
+            currMealIndexStringBuilder.replace(5,8,Integer.toString(i+1));
+         }
+         else if (i+1 < 100000)//ingr10000 to ingr99999
+         {
+            currMealIndexStringBuilder.replace(4,8,Integer.toString(i+1));
+         }
+         else
+         {
+            // TODO LOW PRIORITY insert error handling code for >ingr99999
+         }
+      }
+
+      this.todaysLogListView = findViewById(R.id.listView_todays_log);
+      this.todaysLogListViewArrayAdapter =
+              new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, todaysLogListViewArrayList);
+      todaysLogListView.setAdapter(todaysLogListViewArrayAdapter);
+
    }
 
    @Override

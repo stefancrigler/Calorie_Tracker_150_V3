@@ -27,7 +27,7 @@ public class IngredientClass
 
     public String toString()
     {
-        return String.format("%-30s/%5d%-10s/%6d calories", this.ingredientName, this.nUnit, this.unitName, this.calories );
+        return String.format("%-30s/%-5d%-10s/%-6d calories", this.ingredientName, this.nUnit, this.unitName, this.calories );
     }
 
 }
