@@ -130,7 +130,7 @@ public class MyCalorieHistoryActivity extends AppCompatActivity
             editor.apply();
             for(int i = 0; i < 6; i++){
                NameArray[i] = "";
-               
+
                CalorieArray[i] = "";
             }
             date_display.setText(newDateString);

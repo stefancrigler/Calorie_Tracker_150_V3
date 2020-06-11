@@ -100,7 +100,7 @@ public class Fat_Secret_Set_Amount extends AppCompatActivity {
             add = findViewById(R.id.add);
             calories = findViewById(R.id.calories);
             food_description = findViewById(R.id.food_description);
-            food_description.setText(food.getServings().get(0).toString());
+            //food_description.setText(food.getServings().get(0).toString());
             if (food.getServings() != null && food.getServings().size() > 0) {
                 // The following line will give you Serving object.
                 Serving serving = food.getServings().get(0);

@@ -26,6 +26,7 @@ import java.util.Map;
 
 public class SettingsActivity extends AppCompatActivity {
     private Button calorie_goal_update;
+    private Button fatSecret;
     private TextView goal_update;
     private TextView calorie_goal;
     private int daily_goal;
@@ -227,5 +228,11 @@ public class SettingsActivity extends AppCompatActivity {
                 });
         startActivity(intent);
         finish();
+    }
+    public void fatsecret(View view){
+        Intent intent = new Intent(SettingsActivity.this, FatSecret_Search_Meal.class);
+        startActivity(intent);
+        finish();
+
     }
 }
